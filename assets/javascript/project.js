@@ -19,6 +19,7 @@ $(document).ready(function () {
     var long = '';
     var userCats = [];
     var offset = 0;
+    var filter ='';
 
 
     function promptZip(spinAfter) {
@@ -331,7 +332,17 @@ $(document).ready(function () {
         createWheel();
     }
 
+    function changeFilter(){
+        let newFil = $(this).data("term");
+        console.log(newFil);
+        $(".searchMe").removeClass("searchMe");
+        $(this).addClass("searchMe");
+        filter = newFil;
+    }
+
     $(document).ready(function () {
+
+        $(".filter").on("click",changeFilter);
 
         userLocation = localStorage.getItem("resPickerZip");
         // console.log(userLocation);
@@ -425,15 +436,18 @@ $(document).ready(function () {
     function searchYelp(cat, zip, offset) {
         // JAVASCRIPT FOR FRONT-END CSS WIDGETS
         //let yelpSearch = "Thai";
+        if (filter != ''){
+            filter = filter.toLowerCase();
+        }
         if (zip == undefined || zip == '') {
             zip = 92121;
         }
         var api = "yKOEUCF9Lca7gsPDyifirt-pXKuwx_YIJvpiqO__oUJgJeKQWcNFkwUGpQs4nFxhofY5wI7VKbrXF-E4D5r-28x5BXv7QenKIbXAmKR9HJ5EPtfc4SVXWWqA_-evXHYx";
         //let location = Diego";
         if (useCoords) {
-            var url = `https://api.yelp.com/v3/businesses/search?term=${cat}&latitude=${lat}&longitude=${long}&limit=5&offset=${offset}`
+            var url = `https://api.yelp.com/v3/businesses/search?term=${cat}&latitude=${lat}&longitude=${long}&limit=5&offset=${offset}&sort_by=${filter}`
         } else {
-            var url = `https://api.yelp.com/v3/businesses/search?term=${cat}&location=${zip}&limit=5&offset=${offset}`
+            var url = `https://api.yelp.com/v3/businesses/search?term=${cat}&location=${zip}&limit=5&offset=${offset}&sort_by=${filter}`
         }
 
         console.log(url);
