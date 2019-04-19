@@ -438,6 +438,8 @@ $(document).ready(function () {
         //let yelpSearch = "Thai";
         if (filter != ''){
             filter = filter.toLowerCase();
+        } else {
+            filter ="best_match";
         }
         if (zip == undefined || zip == '') {
             zip = 92121;
