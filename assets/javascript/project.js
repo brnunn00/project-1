@@ -45,8 +45,12 @@ $(document).ready(function () {
     }
     function geolocate() {
         //if (userLocation == undefined || undefined == null) 
+        if (!useCoords){
         navigator.geolocation.getCurrentPosition(onGeolocateSuccess, onGeolocateError);
-
+        } else {
+            useCoords = false;
+            promptZip();
+        }
     }
 
 
